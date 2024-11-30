@@ -21,15 +21,16 @@ Now, you can run the `iwconfig` command, and you will see that wlan0 is now in m
 # Set up DNS
 ## Edit resolv.conf
 Open /etc/resolv.conf:
+
 `sudo nano /etc/resolv.conf`
 
 Then, write the following into the file:
 
-`domain home`
-
-`nameserver 8.8.8.8`
-
-`nameserver 8.8.4.4`
+```
+domain home
+nameserver 8.8.8.8
+nameserver 8.8.4.4
+```
 
 
 ## Edit dhcpcd.conf
@@ -39,9 +40,10 @@ Open /etc/dhcpcd.conf:
 
 Write the following at the end of the file:
 
-`interface wlan0`
-
-`static domain_name_servers=8.8.8.8 8.8.4.4`
+```
+interface wlan0
+static domain_name_servers=8.8.8.8 8.8.4.4
+```
 
 To make sure that the dhcpcd service doesn't overwrite this, run the following command to make the file immutable:
 
