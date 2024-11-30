@@ -77,4 +77,9 @@ Then, just run the following command, and you should be able to get a network co
 
 `wpa_supplicant -Dnl80211 -iwlan0 -c/etc/wpa_supplicant/wpa_supplicant.conf`
 
+If you want to be able to use the same terminal while connected to the internet, run the following command, which is just the previous one except it suppresses all output:
+
+`nohup wpa_supplicant -Dnl80211 -iwlan0 -c/etc/wpa_supplicant/wpa_supplicant.conf &`
+
+
 I hope that helped, and have a good day!
