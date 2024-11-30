@@ -7,9 +7,13 @@ Note: I'm new to P4wnP1, and the following tutorial was compiled with the help o
 # Set wlan0 to managed mode
 This step is important because currently, wlan0 is responsible for handling its WIFI network. However, this is the only wireless interface that can be used to connect to the internet, so we need to change it into managed mode. 
 To do that, run the following:
-`sudo ifconfig wlan0 down
-sudo iwconfig wlan0 mode managed
-sudo ifconfig wlan0 up`
+
+`sudo ifconfig wlan0 down`
+
+`sudo iwconfig wlan0 mode managed`
+
+`sudo ifconfig wlan0 up`
+
 
 Now, you can run the `iwconfig` command, and you will see that wlan0 is now in managed mode, but is not associated to any WIFI network. 
 
@@ -20,22 +24,31 @@ Open /etc/resolv.conf:
 `sudo nano /etc/resolv.conf`
 
 Then, write the following into the file:
-`domain home
-nameserver 8.8.8.8
-nameserver 8.8.4.4`
+
+`domain home`
+
+`nameserver 8.8.8.8`
+
+`nameserver 8.8.4.4`
+
 
 ## Edit dhcpcd.conf
 Open /etc/dhcpcd.conf:
+
 `sudo nano /etc/dhcpcd.conf`
 
 Write the following at the end of the file:
-`interface wlan0
-static domain_name_servers=8.8.8.8 8.8.4.4`
+
+`interface wlan0`
+
+`static domain_name_servers=8.8.8.8 8.8.4.4`
 
 To make sure that the dhcpcd service doesn't overwrite this, run the following command to make the file immutable:
+
 `sudo chattr +i /etc/resolv.conf`
 
 If for any reason you need to make changes to the file, run the following command to be able to modify the file again:
+
 `sudo chattr -i /etc/resolv.conf`
 
 
@@ -43,9 +56,12 @@ If for any reason you need to make changes to the file, run the following comman
 
 Now you can begin connecting to a WIFI network. For this, you will need a wireless network to connect to, as you will use the network name and password in the following steps. 
 First, create a file in /etc/wpa_supplicant/ called wpa_supplicant.conf
+
 `sudo nano /etc/wpa_supplicant/wpa_supplicant.conf`
 Write the following into the file:
-`
+
+
+```
 ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
 update_config=1
 country=US
@@ -54,9 +70,9 @@ network={
   psk="<WIFI password>"
   key_mgmt=WPA-PSK
 }
-`
-
+```
 Then, just run the following command, and you should be able to get a network connection:
+
 `wpa_supplicant -Dnl80211 -iwlan0 -c/etc/wpa_supplicant/wpa_supplicant.conf`
 
 I hope that helped, and have a good day!
