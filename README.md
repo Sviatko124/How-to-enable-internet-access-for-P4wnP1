@@ -49,9 +49,16 @@ To make sure that the dhcpcd service doesn't overwrite this, run the following c
 
 `sudo chattr +i /etc/resolv.conf`
 
+
+Then, restart dhcpcd:
+
+`sudo systemctl restart dhcpcd`
+
+
 If for any reason you need to make changes to the file, run the following command to be able to modify the file again:
 
 `sudo chattr -i /etc/resolv.conf`
+
 
 
 # Connect to WIFI
